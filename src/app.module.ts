@@ -1,12 +1,24 @@
 import { Module } from '@nestjs/common';
-import { PrismaModule } from './prisma/prisma.module';
-import { LoggingModule } from './logging/logging.module';
-import { TransactionsModule } from './transactions/transactions.module';
-import { UsersModule } from './users/users.module';
+import { BullModule } from '@nestjs/bullmq';
+import { PrismaModule } from './database/prisma.module';
+import { TransactionsModule } from './modules/transactions/transactions.module';
+import { NotificationsModule } from './modules/notifications/notifications.module';
 
 @Module({
-  imports: [PrismaModule, LoggingModule, TransactionsModule, UsersModule],
-  controllers: [],
-  providers: [],
+  imports: [
+    PrismaModule,
+    BullModule.forRoot({
+      connection: {
+        host: process.env.REDIS_HOST || 'localhost',
+        port: parseInt(process.env.REDIS_PORT || '6379'),
+      },
+      defaultJobOptions: {
+        attempts: 3,
+        backoff: { type: 'exponential', delay: 1000 },
+      },
+    }),
+    TransactionsModule,
+    NotificationsModule,
+  ],
 })
 export class AppModule {}
