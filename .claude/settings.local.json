@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(yarn add prisma @prisma/client)",
+      "Bash(npx prisma init)",
+      "Bash(npx prisma generate)",
+      "Bash(node -e \"const p = require\\(''@prisma/client''\\); console.log\\(Object.keys\\(p\\).filter\\(k => k.includes\\(''Prisma''\\) || k.includes\\(''Client''\\)\\)\\)\")",
+      "Bash(yarn remove prisma @prisma/client)",
+      "Bash(yarn add prisma@5.22 @prisma/client@5.22)",
+      "Bash(yarn add class-validator class-transformer @nestjs/swagger)"
+    ]
+  }
+}
