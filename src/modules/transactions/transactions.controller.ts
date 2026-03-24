@@ -11,6 +11,11 @@ export class TransactionsController {
     return this.transactionsService.create(dto);
   }
 
+  @Get()
+  findAll() {
+    return this.transactionsService.findAll();
+  }
+
   @Get(':id')
   findById(@Param('id') id: string) {
     return this.transactionsService.findById(id);

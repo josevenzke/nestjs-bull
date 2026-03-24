@@ -6,6 +6,12 @@ import { PrismaService } from '../../database/prisma.service';
 export class TransactionsRepository {
   constructor(private readonly prisma: PrismaService) {}
 
+  async findAll() {
+    return this.prisma.transaction.findMany({
+      orderBy: { createdAt: 'desc' },
+    });
+  }
+
   async create(data: Prisma.TransactionUncheckedCreateInput) {
     return this.prisma.transaction.create({ data });
   }

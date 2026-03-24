@@ -27,6 +27,10 @@ export class TransactionsService {
     return transaction;
   }
 
+  findAll() {
+    return this.transactionsRepository.findAll();
+  }
+
   async findById(id: string) {
     const transaction = await this.transactionsRepository.findById(id);
     if (!transaction) {
